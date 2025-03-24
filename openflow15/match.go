@@ -1909,6 +1909,102 @@ func NewTunnelIpv6SrcField(tunnelIpv6Src net.IP, tunnelIpv6SrcMask *net.IP) *Mat
 	return f
 }
 
+//TCP_SRC port range
+func NewTcpSrcMaskField(port uint16, portMask *uint16) *MatchField {
+        f := new(MatchField)
+        f.Class = OXM_CLASS_OPENFLOW_BASIC
+        f.Field = OXM_FIELD_TCP_SRC
+        f.HasMask = false
+
+        tcpSrcField := new(PortField)
+        tcpSrcField.port = port
+        f.Value = tcpSrcField
+        f.Length = uint8(tcpSrcField.Len())
+
+        // Add the mask
+        if portMask != nil {
+                mask := new(PortField)
+                mask.port = *portMask
+                f.Mask = mask
+                f.HasMask = true
+                f.Length += uint8(mask.Len())
+        }
+
+        return f
+}
+
+//TCP_DST port range
+func NewTcpDstMaskField(port uint16, portMask *uint16) *MatchField {
+        f := new(MatchField)
+        f.Class = OXM_CLASS_OPENFLOW_BASIC
+        f.Field = OXM_FIELD_TCP_DST
+        f.HasMask = false
+
+        tcpDstField := new(PortField)
+        tcpDstField.port = port
+        f.Value = tcpDstField
+        f.Length = uint8(tcpDstField.Len())
+
+        // Add the mask
+        if portMask != nil {
+                mask := new(PortField)
+                mask.port = *portMask
+                f.Mask = mask
+                f.HasMask = true
+                f.Length += uint8(mask.Len())
+        }
+
+        return f
+}
+
+// UDP_SRC port range
+func NewUdpSrcMaskField(port uint16, portMask *uint16) *MatchField {
+        f := new(MatchField)
+        f.Class = OXM_CLASS_OPENFLOW_BASIC
+        f.Field = OXM_FIELD_UDP_SRC
+        f.HasMask = false
+
+        udpSrcField := new(PortField)
+        udpSrcField.port = port
+        f.Value = udpSrcField
+        f.Length = uint8(udpSrcField.Len())
+
+        // Add the mask
+        if portMask != nil {
+                mask := new(PortField)
+                mask.port = *portMask
+                f.Mask = mask
+                f.HasMask = true
+                f.Length += uint8(mask.Len())
+        }
+
+        return f
+}
+
+// UDP_DST port range
+func NewUdpDstMaskField(port uint16, portMask *uint16) *MatchField {
+        f := new(MatchField)
+        f.Class = OXM_CLASS_OPENFLOW_BASIC
+        f.Field = OXM_FIELD_UDP_DST
+        f.HasMask = false
+
+        udpDstField := new(PortField)
+        udpDstField.port = port
+        f.Value = udpDstField
+        f.Length = uint8(udpDstField.Len())
+
+        // Add the mask
+        if portMask != nil {
+                mask := new(PortField)
+                mask.port = *portMask
+                f.Mask = mask
+                f.HasMask = true
+                f.Length += uint8(mask.Len())
+        }
+
+        return f
+}
+
 // Return a MatchField for tunnel ipv6 dst addr
 func NewTunnelIpv6DstField(tunnelIpv6Dst net.IP, tunnelIpv6DstMask *net.IP) *MatchField {
 	f := new(MatchField)
