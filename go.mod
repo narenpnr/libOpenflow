@@ -1,4 +1,4 @@
-module antrea.io/libOpenflow
+module github.com/narenpnr/libOpenflow
 
 go 1.23.0
 
